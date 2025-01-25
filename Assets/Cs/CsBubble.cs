@@ -18,12 +18,32 @@ public class CsBubble : MonoBehaviour {
     // this function fires when a character enters the CsBubble
     void OnTriggerEnter(Collider pCollider) {
 
-        // fire the bounce function on the character
-        pCollider.GetComponent<CsCharacter>().Bounce();
+        // collide with the bubble
+        OnBubbleCollision(pCollider);
+    }
 
-        // play sound effect at random pitch
-        m_pAudioPop.pitch = Random.Range(0.8f, 1.2f);
-        m_pAudioPop.Play();
+    // this function fires when a character is inside the CsBubble
+    void OnTriggerStay(Collider pCollider) {
+
+        // collide with the bubble
+        OnBubbleCollision(pCollider);
+    }
+
+    void OnBubbleCollision(Collider pCollider) {
+
+        // fire the bounce function on the character
+        bool bBounce = pCollider.GetComponent<CsCharacter>().Bounce();
+
+        // character actually bounced
+        if (bBounce == true) {
+
+            // play sound effect at random pitch
+            m_pAudioPop.pitch = Random.Range(0.8f, 1.2f);
+            m_pAudioPop.Play();
+
+            // destory bubble, pop it
+            Destroy(gameObject);
+        }
     }
 
     // this function sets the reference to the pop sound effect

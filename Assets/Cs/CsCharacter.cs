@@ -100,11 +100,18 @@ public class CsCharacter : MonoBehaviour {
         GetComponent<MeshRenderer>().material.mainTexture = m_pTexture;
     }
 
-    // this function is called when the bounce event fires
-    public void Bounce() {
+    // this function is called when the bounce event fires and returns if the character was able to bounce
+    public bool Bounce() {
 
         // debug
         //Debug.Log("bounce");
+
+        // only bounce when falling down
+        if (m_pRigidbody.linearVelocity.y > 0) {
+
+            // no bounce was done
+            return false;
+        }
 
         // bounce the character up
         m_pRigidbody.linearVelocity = new Vector3(
@@ -117,6 +124,9 @@ public class CsCharacter : MonoBehaviour {
         m_pCamera.m_pTargetY = transform.position.y;
 
         // debug
-        Debug.Log("target y: " + m_pCamera.m_pTargetY.ToString());
+        //Debug.Log("target y: " + m_pCamera.m_pTargetY.ToString());
+
+        // bounce completed
+        return true;
     }
 }
