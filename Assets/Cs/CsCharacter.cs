@@ -7,12 +7,15 @@ public class CsCharacter : MonoBehaviour {
     //Material m_pMaterial;
     Texture m_pTexture;
     float m_flInputX;
+    float m_flBoundaryDeath;
+    bool m_bGameOver;
 
     // parameters
     [SerializeField] float m_flBounceSpeed;
     [SerializeField] float m_flSpeedMultiplier;
 
     // references
+    [SerializeField] CsGame m_pGame;
     [SerializeField] CsCamera m_pCamera;
     [SerializeField] Texture m_pTextureUp;
     [SerializeField] Texture m_pTextureDown;
@@ -26,8 +29,13 @@ public class CsCharacter : MonoBehaviour {
         m_pRigidbody = GetComponent<Rigidbody>();
 
         // get texture from material from renderer component
-        //m_pMaterial = GetComponent<MeshRenderer>().material;
         m_pTexture = GetComponent<MeshRenderer>().material.mainTexture;
+
+        // set the death boundary
+        m_flBoundaryDeath = -10.0f;
+
+        // set local game over status
+        m_bGameOver = false;
     }
 
     // update is called once per frame
@@ -40,12 +48,22 @@ public class CsCharacter : MonoBehaviour {
     // update fixed is called 50 times per second
     void FixedUpdate() {
 
-        // horizontal movement
+        // horizontal movementbubble
         m_pRigidbody.linearVelocity = new Vector3(
             m_flInputX * m_flSpeedMultiplier,
             m_pRigidbody.linearVelocity.y,
             m_pRigidbody.linearVelocity.z
         );
+
+        // check if we crossed the death boundary
+        if (transform.position.y < m_flBoundaryDeath && m_bGameOver == false) {
+
+            // game over
+            m_pGame.GameOver();
+
+            // set local game over status
+            m_bGameOver = true;
+        }
 
         // update animation
         AnimationUpdate();
@@ -79,7 +97,7 @@ public class CsCharacter : MonoBehaviour {
         // moving up
         } else {
 
-            // character is not horizontally moving
+            // character is not horizontally movingbubble
             if (m_pRigidbody.linearVelocity.x == 0) {
 
                 // set character sprite
@@ -88,7 +106,7 @@ public class CsCharacter : MonoBehaviour {
             // character is horizontally moving
             } else {
 
-                // set character sprite
+                // set character spritebubble
                 m_pTexture = m_pTextureSideUp;
 
                 // set the x scale of characeter
@@ -109,7 +127,7 @@ public class CsCharacter : MonoBehaviour {
         // only bounce when falling down
         if (m_pRigidbody.linearVelocity.y > 0) {
 
-            // no bounce was done
+            // no bounce was done, exit this function
             return false;
         }
 
@@ -125,6 +143,9 @@ public class CsCharacter : MonoBehaviour {
 
         // debug
         //Debug.Log("target y: " + m_pCamera.m_pTargetY.ToString());
+
+        // set the new death boundary
+        m_flBoundaryDeath = transform.position.y - 10.0f;
 
         // bounce completed
         return true;

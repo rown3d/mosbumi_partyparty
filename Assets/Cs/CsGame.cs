@@ -7,10 +7,12 @@ public class CsGame : MonoBehaviour {
     [SerializeField] string[] m_iLore;
 
     // references
+    [SerializeField] GameObject m_pGameOver;
     [SerializeField] AudioSource m_pAudioPop;
     [SerializeField] AudioSource m_pAudioCoin1;
     [SerializeField] AudioSource m_pAudioCoin2;
     [SerializeField] AudioSource m_pAudioCoin3;
+    [SerializeField] AudioSource m_pAudioHazard;
 
     // start is called once before the first execution of update after the monobehaviour is created
     void Start() {
@@ -32,6 +34,13 @@ public class CsGame : MonoBehaviour {
         BubblesAdd( 2, -8.0f, 8.0f, 100.0f, 108.0f);
         BubblesAdd( 1, -8.0f, 8.0f, 108.0f, 116.0f);
     }
+
+    // debug!! testing purposes only
+    /*void Update() {
+        if (Input.GetKeyDown(KeyCode.R)) {
+            Application.LoadLevel(0);
+        }
+    }*/
 
     // add a new section of bubbles
     public void BubblesAdd(int nBubbleAmount, float flBoundLeft, float flBoundRight, float flBoundDown, float flBoundUp) {
@@ -65,10 +74,25 @@ public class CsGame : MonoBehaviour {
         pCoin.AudioCoinSet(m_pAudioCoin1, m_pAudioCoin2, m_pAudioCoin3);
     }
 
-    // debug!! testing purposes only
-    void Update() {
-        if (Input.GetKeyDown(KeyCode.R)) {
-            Application.LoadLevel(0);
+    // calling this function ends the game
+    public void GameOver() {
+
+        // play the sound effect
+        m_pAudioHazard.Play();
+
+        // enable the game over object
+        m_pGameOver.SetActive(true);
+
+        // find all characters
+        foreach (CsCharacter pCharacter in GameObject.FindObjectsOfType<CsCharacter>()) {
+
+            // stop all character movement
+            pCharacter.enabled = false;
+            pCharacter.gameObject.GetComponent<Rigidbody>().constraints =
+                 RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY |
+                 RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX |
+                 RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+            //pCharacter.gameObject.GetComponent<SphereCollider>().enabled = false;
         }
     }
 }
