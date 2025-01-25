@@ -3,6 +3,7 @@ using UnityEngine;
 public class CsGame : MonoBehaviour {
 
     [SerializeField] CsBubble m_pBubblePrefab;
+    [SerializeField] string[] m_iLore;
 
     // start is called once before the first execution of update after the monobehaviour is created
     void Start() {

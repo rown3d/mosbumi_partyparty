@@ -13,6 +13,7 @@ public class CsCharacter : MonoBehaviour {
     [SerializeField] float m_flSpeedMultiplier;
 
     // references
+    [SerializeField] CsCamera m_pCamera;
     [SerializeField] Texture m_pTextureUp;
     [SerializeField] Texture m_pTextureDown;
     [SerializeField] Texture m_pTextureSideUp;
@@ -106,12 +107,16 @@ public class CsCharacter : MonoBehaviour {
         //Debug.Log("bounce");
 
         // bounce the character up
-        //m_pRigidbody.linearVelocity = m_flBounceSpeed * transform.up;
-        //m_pRigidbody.linearVelocity.y = ;
         m_pRigidbody.linearVelocity = new Vector3(
             m_pRigidbody.linearVelocity.x,
             m_flBounceSpeed,
             m_pRigidbody.linearVelocity.z
         );
+
+        // set new camera target
+        m_pCamera.m_pTargetY = transform.position.y;
+
+        // debug
+        Debug.Log("target y: " + m_pCamera.m_pTargetY.ToString());
     }
 }

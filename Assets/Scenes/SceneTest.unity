@@ -128,6 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 330585546}
+  - component: {fileID: 330585548}
   - component: {fileID: 330585545}
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
@@ -256,6 +257,20 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &330585548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c2e21767d1f860e3b73650c5f112cc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_pTargetY: 0
+  m_flCameraOffset: 3
 --- !u!1 &331228294
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,7 +409,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &410087040
 Light:
   m_ObjectHideFlags: 0
@@ -514,7 +529,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &832575518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -577,6 +592,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_pBubblePrefab: {fileID: 18838005651926975, guid: 1e222310c2a88ae8faaa4de5ed5ccb00, type: 3}
+  m_iLore:
+  - All piggies go to heaven.
+  - Piggies have been wandering the shores for a hunderd years.
+  - A large tall tower has emerged, it's top obscured by dark coulds.
+  - Piggies only get a single shot to climb the tower.
+  - To go higher and higher, piggies bounce on bubbles.
+  - Piggies strive to escape the darkness below.
+  - Piggies don't know where bubbles come from.
+  - Bubbles are just there to help piggies bounce.
+  - On top of the tower a gatekeeper is waiting.
+  - When piggies reach the gate, not all are allowed to pass.
+  - Piggies will need many golden coins to pass the gate into heaven.
+  - No one knows if any piggies ever reached heaven.
+  - No one knows what happens when piggies pass through the gate.
+  - No piggy ever made it and told the story.
+  - The tower seems to go on forever.
+  - The tower does not seem to have an end.
+  - Piggies keep climbing until the very end.
+  - Piggies keep climbing until it is all over.
+  - Piggies keep climbing until everything stops.
+  - Piggies keep climbing for ever...
+  - ...
 --- !u!4 &1404379250
 Transform:
   m_ObjectHideFlags: 0
@@ -743,6 +780,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_flBounceSpeed: 10
   m_flSpeedMultiplier: 5
+  m_pCamera: {fileID: 330585548}
   m_pTextureUp: {fileID: 2800000, guid: 606b641db91a56be996a8852bba7258a, type: 3}
   m_pTextureDown: {fileID: 2800000, guid: b09c20be4b8c30460838c295530b6185, type: 3}
   m_pTextureSideUp: {fileID: 2800000, guid: 2dac6e1a957e89493a89cf1c1e7604da, type: 3}
