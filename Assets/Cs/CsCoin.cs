@@ -33,4 +33,13 @@ public class CsCoin : MonoBehaviour {
             default: break;
         }
     }
+
+    // this function sets references to the coin sound effect
+    public void AudioCoinSet(AudioSource audioCoin1, AudioSource audioCoin2, AudioSource audioCoin3) {
+
+        // set reference to supplied arguments
+        m_pAudioCoin1 = audioCoin1;
+        m_pAudioCoin2 = audioCoin2;
+        m_pAudioCoin3 = audioCoin3;
+    }
 }
