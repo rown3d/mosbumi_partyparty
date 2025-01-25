@@ -5,6 +5,9 @@ public class CsGame : MonoBehaviour {
     [SerializeField] CsBubble m_pBubblePrefab;
     [SerializeField] string[] m_iLore;
 
+    // references
+    [SerializeField] AudioSource m_pAudioPop;
+
     // start is called once before the first execution of update after the monobehaviour is created
     void Start() {
 
@@ -19,6 +22,9 @@ public class CsGame : MonoBehaviour {
 
             // give it a random position
             pBubble.transform.position = new Vector3(Random.Range(-8.0f, 8.0f), Random.Range(-4.0f, 4.0f), 0.0f);
+
+            // give it a reference to the pop sound effect
+            pBubble.AudioPopSet(m_pAudioPop);
         }
     }
 }

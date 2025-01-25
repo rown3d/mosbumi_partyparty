@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class CsCoin : MonoBehaviour {
 
+    // references
+    [SerializeField] AudioSource m_pAudioCoin1;
+    [SerializeField] AudioSource m_pAudioCoin2;
+    [SerializeField] AudioSource m_pAudioCoin3;
+
     // start is called once before the first execution of update after the monobehaviour is created
     void Start() {
         
@@ -15,10 +20,17 @@ public class CsCoin : MonoBehaviour {
     // this function fires when a character enters the CsBubble
     void OnTriggerEnter(Collider pCollider) {
 
-        // fire the bounce function on the character
-        // pCollider.GetComponent<CsCharacter>().Bounce();
-
         // destory game object
         Destroy(gameObject);
+
+        // choose random coin sound
+        switch (Random.Range(0,3)) {
+
+            // play the sound
+            case 0: m_pAudioCoin1.Play(); break;
+            case 1: m_pAudioCoin2.Play(); break;
+            case 2: m_pAudioCoin3.Play(); break;
+            default: break;
+        }
     }
 }
