@@ -1446,6 +1446,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_flBounceSpeed: 10
   m_flSpeedMultiplier: 5
+  m_flBoundaryDeathOffset: 6
   m_pGame: {fileID: 1404379249}
   m_pCamera: {fileID: 330585548}
   m_pTextureUp: {fileID: 2800000, guid: 606b641db91a56be996a8852bba7258a, type: 3}

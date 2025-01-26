@@ -13,6 +13,7 @@ public class CsCharacter : MonoBehaviour {
     // parameters
     [SerializeField] float m_flBounceSpeed;
     [SerializeField] float m_flSpeedMultiplier;
+    [SerializeField] float m_flBoundaryDeathOffset;
 
     // references
     [SerializeField] CsGame m_pGame;
@@ -32,7 +33,7 @@ public class CsCharacter : MonoBehaviour {
         m_pTexture = GetComponent<MeshRenderer>().material.mainTexture;
 
         // set the death boundary
-        m_flBoundaryDeath = -10.0f;
+        m_flBoundaryDeath = -m_flBoundaryDeathOffset;
 
         // set local game over status
         m_bGameOver = false;
@@ -145,7 +146,7 @@ public class CsCharacter : MonoBehaviour {
         //Debug.Log("target y: " + m_pCamera.m_pTargetY.ToString());
 
         // set the new death boundary
-        m_flBoundaryDeath = transform.position.y - 10.0f;
+        m_flBoundaryDeath = transform.position.y - m_flBoundaryDeathOffset;
 
         // bounce completed
         return true;
