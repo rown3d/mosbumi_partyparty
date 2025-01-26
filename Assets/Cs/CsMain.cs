@@ -1,6 +1,8 @@
 using UnityEngine;
 
-public class CsGameOver : MonoBehaviour {
+public class CsMain : MonoBehaviour {
+
+    [SerializeField] CsAmbience m_pAmbience;
 
     // start is called once before the first execution of update after the monobehaviour is created
     void Start() {
@@ -13,7 +15,10 @@ public class CsGameOver : MonoBehaviour {
         // key is pressed
         if (Input.GetKeyDown(KeyCode.R) || Input.GetButtonDown("Confirm") || Input.GetButtonDown("Jump")) {
 
-            // restart the game
+            // start the ost
+            m_pAmbience.OstPlay();
+
+            // go to the game
             Application.LoadLevel(1);
         }
     }
