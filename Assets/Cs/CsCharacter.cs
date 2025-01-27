@@ -7,6 +7,9 @@ public class CsCharacter : MonoBehaviour {
     //Material m_pMaterial;
     Texture m_pTexture;
     float m_flInputX;
+    float m_flInputY;
+    bool m_bInputFart;
+    bool m_bInputFartReleased;
     float m_flBoundaryDeath;
     bool m_bGameOver;
 
@@ -22,6 +25,10 @@ public class CsCharacter : MonoBehaviour {
     [SerializeField] Texture m_pTextureDown;
     [SerializeField] Texture m_pTextureSideUp;
     [SerializeField] Texture m_pTextureSideDown;
+    [SerializeField] AudioSource m_pAudioFart1;
+    [SerializeField] AudioSource m_pAudioFart2;
+    [SerializeField] AudioSource m_pAudioFart3;
+    [SerializeField] CsBubbleFart m_pBubbleFartPrefab;
 
     // start is called once before the first execution of update after the monobehaviour is created
     void Start() {
@@ -37,13 +44,36 @@ public class CsCharacter : MonoBehaviour {
 
         // set local game over status
         m_bGameOver = false;
+
+        // reset inputs
+        m_flInputX = 0.0f;
+        m_flInputY = 0.0f;
+        m_bInputFart = false;
+        m_bInputFartReleased = true;
+
     }
 
     // update is called once per frame
     void Update() {
 
-        // get the inputs
+        // get movement inputs
         m_flInputX = Input.GetAxisRaw("Horizontal");
+        m_flInputY = Input.GetAxisRaw("Vertical");
+
+        // set fart released input
+        if (m_flInputY > -0.5f) {
+
+            // fart input has been released
+            m_bInputFartReleased = true;
+        }
+
+        // set fart input
+        if (m_flInputY < -0.5f && m_bInputFartReleased == true) {
+
+            // fart next time update fixed is called
+            m_bInputFart = true;
+            m_bInputFartReleased = false;
+        }
     }
 
     // update fixed is called 50 times per second
@@ -56,7 +86,36 @@ public class CsCharacter : MonoBehaviour {
             m_pRigidbody.linearVelocity.z
         );
 
-        // check if we crossed the death boundary
+        // bubble up (fart)
+        if (m_bInputFart == true) {
+
+            // instantiate bubble fart
+            CsBubbleFart pBubbleFart = Instantiate(m_pBubbleFartPrefab, transform.position, transform.rotation);
+
+            // give bubble fart name
+            pBubbleFart.name = "bubble fart";
+
+            // give it a reference to the pop sound effect
+            pBubbleFart.AudioPopSet(m_pAudioFart1);
+
+            // apply speed to fart bubble
+            pBubbleFart.m_flSpeedX += m_pRigidbody.linearVelocity.x*0.01f;
+            //pBubbleFart.m_flSpeedY += m_pRigidbody.linearVelocity.y;
+
+            // choose random fart sound
+            switch (Random.Range(0,2)) {
+
+                // play the sound
+                case 0: m_pAudioFart2.Play(); break;
+                case 1: m_pAudioFart3.Play(); break;
+                default: break;
+            }
+
+            // launch piggy
+            Launch();
+        }
+
+        // check if we crossed death boundary
         if (transform.position.y < m_flBoundaryDeath && m_bGameOver == false) {
 
             // game over
@@ -68,13 +127,13 @@ public class CsCharacter : MonoBehaviour {
 
         // update animation
         AnimationUpdate();
+
+        // reset fart input
+        m_bInputFart = false;
     }
 
     // update animations
     void AnimationUpdate() {
-
-        // debug
-        //Debug.Log("animations");
 
         // character is falling down
         if (m_pRigidbody.linearVelocity.y < 0) {
@@ -119,11 +178,19 @@ public class CsCharacter : MonoBehaviour {
         GetComponent<MeshRenderer>().material.mainTexture = m_pTexture;
     }
 
+    // call this function when the character needs to be launched
+    void Launch() {
+
+        // launch the piggy up
+        m_pRigidbody.linearVelocity = new Vector3(
+            m_pRigidbody.linearVelocity.x,
+            m_flBounceSpeed,
+            m_pRigidbody.linearVelocity.z
+        );
+    }
+
     // this function is called when the bounce event fires and returns if the character was able to bounce
     public bool Bounce() {
-
-        // debug
-        //Debug.Log("bounce");
 
         // only bounce when falling down
         if (m_pRigidbody.linearVelocity.y > 0) {
@@ -133,17 +200,10 @@ public class CsCharacter : MonoBehaviour {
         }
 
         // bounce the character up
-        m_pRigidbody.linearVelocity = new Vector3(
-            m_pRigidbody.linearVelocity.x,
-            m_flBounceSpeed,
-            m_pRigidbody.linearVelocity.z
-        );
+        Launch();
 
         // set new camera target
         m_pCamera.m_pTargetY = transform.position.y;
-
-        // debug
-        //Debug.Log("target y: " + m_pCamera.m_pTargetY.ToString());
 
         // set the new death boundary
         m_flBoundaryDeath = transform.position.y - m_flBoundaryDeathOffset;
