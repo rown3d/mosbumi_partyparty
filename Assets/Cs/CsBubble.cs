@@ -34,7 +34,7 @@ public class CsBubble : MonoBehaviour {
     void OnBubbleCollision(Collider pCollider) {
 
         // fire the bounce function on the character
-        bool bBounce = pCollider.GetComponent<CsCharacter>().Bounce();
+        bool bBounce = pCollider.GetComponent<CsCharacter>().BubbleBounce();
 
         // character actually bounced
         if (bBounce == true) {
@@ -44,19 +44,7 @@ public class CsBubble : MonoBehaviour {
             m_pAudioPop.Play();
 
             // create pop effect
-            /*ParticleSystem pPop = */Instantiate(m_pPopPrefab, transform.position, transform.rotation);
-
-            // check if this is not a fart
-            /*if (gameObject.name == "pop fart") {
-
-                // give pop effect a name
-                pPop.name = "pop";
-            }*/
-
-            // flip pop effect randomly
-            //float flScaleX = Mathf.Sign(Random.Range(-1.0f, 1.0f));
-            //Debug.Log(flScaleX);
-            //pPop.transform.localScale = new Vector3(flScaleX, 1.0f, 1.0f);
+            Instantiate(m_pPopPrefab, transform.position, transform.rotation);
 
             // destory bubble
             Destroy(gameObject);

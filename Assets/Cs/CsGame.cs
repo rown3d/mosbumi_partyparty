@@ -35,13 +35,6 @@ public class CsGame : MonoBehaviour {
         BubblesAdd( 1, -8.0f, 8.0f, 108.0f, 116.0f);
     }
 
-    // debug!! testing purposes only
-    /*void Update() {
-        if (Input.GetKeyDown(KeyCode.R)) {
-            Application.LoadLevel(0);
-        }
-    }*/
-
     // add a new section of bubbles
     public void BubblesAdd(int nBubbleAmount, float flBoundLeft, float flBoundRight, float flBoundDown, float flBoundUp) {
 
@@ -92,7 +85,6 @@ public class CsGame : MonoBehaviour {
                  RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY |
                  RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX |
                  RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-            //pCharacter.gameObject.GetComponent<SphereCollider>().enabled = false;
         }
     }
 }

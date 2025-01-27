@@ -1,17 +1,25 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CsCharacter : MonoBehaviour {
 
+    // movement
     Rigidbody m_pRigidbody;
-    //MeshRenderer m_pRenderer;
-    //Material m_pMaterial;
-    Texture m_pTexture;
+
+    // input
     float m_flInputX;
     float m_flInputY;
     bool m_bInputFart;
     bool m_bInputFartReleased;
+
+    // game logic
+    int m_nFart;
+    int m_nScore;
     float m_flBoundaryDeath;
     bool m_bGameOver;
+
+    // rendering
+    Texture m_pTexture;
 
     // parameters
     [SerializeField] float m_flBounceSpeed;
@@ -29,6 +37,13 @@ public class CsCharacter : MonoBehaviour {
     [SerializeField] AudioSource m_pAudioFart2;
     [SerializeField] AudioSource m_pAudioFart3;
     [SerializeField] CsBubbleFart m_pBubbleFartPrefab;
+    [SerializeField] Image m_pFartBar1;
+    [SerializeField] Image m_pFartBar2;
+    [SerializeField] Image m_pFartBar3;
+    [SerializeField] Image m_pFartBar4;
+    [SerializeField] Image m_pScorePanelOutline;
+    [SerializeField] Image m_pScorePanel;
+    [SerializeField] Text m_pScoreText;
 
     // start is called once before the first execution of update after the monobehaviour is created
     void Start() {
@@ -38,6 +53,17 @@ public class CsCharacter : MonoBehaviour {
 
         // get texture from material from renderer component
         m_pTexture = GetComponent<MeshRenderer>().material.mainTexture;
+
+        // set fart amount to 0
+        m_nFart = 0;
+
+        // set score to 0
+        m_nScore = 0;
+
+        // set score ui
+        m_pScoreText.text = "0";
+        m_pScorePanel.rectTransform.sizeDelta = new Vector2(m_pScoreText.preferredWidth, 40.0f);
+        m_pScorePanelOutline.rectTransform.sizeDelta = new Vector2(m_pScoreText.preferredWidth + 10, 50.0f);
 
         // set the death boundary
         m_flBoundaryDeath = -m_flBoundaryDeathOffset;
@@ -79,15 +105,25 @@ public class CsCharacter : MonoBehaviour {
     // update fixed is called 50 times per second
     void FixedUpdate() {
 
-        // horizontal movementbubble
+        // horizontal movement
         m_pRigidbody.linearVelocity = new Vector3(
             m_flInputX * m_flSpeedMultiplier,
             m_pRigidbody.linearVelocity.y,
             m_pRigidbody.linearVelocity.z
         );
 
+        // maximum fart threshold
+        if (m_nFart < 2999) {
+
+            // increate amount of fart
+            m_nFart += 1;
+        }
+
         // bubble up (fart)
-        if (m_bInputFart == true) {
+        if (m_bInputFart == true && m_nFart > 750) {
+
+            // spend 750 fart units
+            m_nFart -= 750;
 
             // instantiate bubble fart
             CsBubbleFart pBubbleFart = Instantiate(m_pBubbleFartPrefab, transform.position, transform.rotation);
@@ -100,7 +136,6 @@ public class CsCharacter : MonoBehaviour {
 
             // apply speed to fart bubble
             pBubbleFart.m_flSpeedX += m_pRigidbody.linearVelocity.x*0.01f;
-            //pBubbleFart.m_flSpeedY += m_pRigidbody.linearVelocity.y;
 
             // choose random fart sound
             switch (Random.Range(0,2)) {
@@ -127,6 +162,12 @@ public class CsCharacter : MonoBehaviour {
 
         // update animation
         AnimationUpdate();
+
+        // update fart ui
+        m_pFartBar1.rectTransform.sizeDelta = new Vector2((Mathf.Clamp(m_nFart,    0.0f,  750.0f)          )*(180.0f / 750.0f), 20.0f);
+        m_pFartBar2.rectTransform.sizeDelta = new Vector2((Mathf.Clamp(m_nFart,  750.0f, 1500.0f) -  750.0f)*(180.0f / 750.0f), 20.0f);
+        m_pFartBar3.rectTransform.sizeDelta = new Vector2((Mathf.Clamp(m_nFart, 1500.0f, 2250.0f) - 1500.0f)*(180.0f / 750.0f), 20.0f);
+        m_pFartBar4.rectTransform.sizeDelta = new Vector2((Mathf.Clamp(m_nFart, 2250.0f, 3000.0f) - 2250.0f)*(180.0f / 750.0f), 20.0f);
 
         // reset fart input
         m_bInputFart = false;
@@ -190,7 +231,7 @@ public class CsCharacter : MonoBehaviour {
     }
 
     // this function is called when the bounce event fires and returns if the character was able to bounce
-    public bool Bounce() {
+    public bool BubbleBounce() {
 
         // only bounce when falling down
         if (m_pRigidbody.linearVelocity.y > 0) {
@@ -210,5 +251,17 @@ public class CsCharacter : MonoBehaviour {
 
         // bounce completed
         return true;
+    }
+
+    // this function is called when the character collects a coin
+    public void CoinCollect() {
+
+        // increase score
+        m_nScore += 1;
+
+        // update ui
+        m_pScoreText.text = m_nScore.ToString();
+        m_pScorePanel.rectTransform.sizeDelta = new Vector2(m_pScoreText.preferredWidth, 40.0f);
+        m_pScorePanelOutline.rectTransform.sizeDelta = new Vector2(m_pScoreText.preferredWidth + 10, 50.0f);
     }
 }

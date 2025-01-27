@@ -17,9 +17,6 @@ public class CsBubbleFart : CsBubble {
         // set default values
         m_flSpeedX = 0.0f;
         m_flSpeedY = -0.05f;
-
-        // change the pop prefab into a pop fart prefab
-        //m_pPopPrefab = m_pPopFartPrefab;
     }
 
     // this function is called 50 times per second
