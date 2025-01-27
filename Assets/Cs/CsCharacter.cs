@@ -246,10 +246,10 @@ public class CsCharacter : MonoBehaviour {
         Launch();
 
         // set new camera target
-        m_pCamera.m_pTargetY = transform.position.y;
+        m_pCamera.m_flTargetY = transform.position.y;
 
         // set the new death boundary
-        m_flBoundaryDeath = transform.position.y - m_flBoundaryDeathOffset;
+        m_flBoundaryDeath = m_pCamera.transform.position.y - m_pCamera.CameraOffsetGet() - m_flBoundaryDeathOffset;
 
         // bounce completed
         return true;
