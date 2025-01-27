@@ -7,8 +7,7 @@ public class CsPop : MonoBehaviour {
 
             // flip pop effect randomly
             float flScaleX = Mathf.Sign(Random.Range(-1.0f, 1.0f));
-            //Debug.Log(flScaleX);
-            /*pPop.*/transform.localScale = new Vector3(flScaleX, 1.0f, 1.0f);
+            transform.localScale = new Vector3(flScaleX, 1.0f, 1.0f);
     }
 
     // update is called once per frame
