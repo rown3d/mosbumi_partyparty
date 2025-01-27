@@ -4,6 +4,7 @@ public class CsBubble : MonoBehaviour {
 
     // references
     [SerializeField] AudioSource m_pAudioPop;
+    [SerializeField] ParticleSystem m_pPopPrefab;
 
     // start is called once before the first execution of update after the monobehaviour is created
     void Start() {
@@ -42,6 +43,10 @@ public class CsBubble : MonoBehaviour {
             m_pAudioPop.Play();
 
             // destory bubble, pop it
+            /*ParticleSystem pPop = */Instantiate(m_pPopPrefab, transform.position, transform.rotation);
+            //float flScaleX = Mathf.Sign(Random.Range(-1.0f, 1.0f));
+            //Debug.Log(flScaleX);
+            //pPop.transform.localScale = new Vector3(flScaleX, 1.0f, 1.0f); // flip pop effect randomly
             Destroy(gameObject);
         }
     }

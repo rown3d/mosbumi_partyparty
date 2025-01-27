@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e682e4766bc39b789d846ef2965a05e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_pAudioPop: {fileID: 0}
+  m_pPopPrefab: {fileID: 5009088648801484707, guid: 11f26e6a6889dcfd3a87a7851707e628, type: 3}
 --- !u!33 &3829960541898774623
 MeshFilter:
   m_ObjectHideFlags: 0
