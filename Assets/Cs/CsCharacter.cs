@@ -152,6 +152,9 @@ public class CsCharacter : MonoBehaviour {
             Launch();
         }
 
+        // trigger stage generation, generate more bubbles when high enough
+        m_pGame.TriggerBubblesAdd(transform.position.y);
+
         // check if we crossed death boundary
         if (transform.position.y < m_flBoundaryDeath && m_bGameOver == false) {
 

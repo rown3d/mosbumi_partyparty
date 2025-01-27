@@ -18,25 +18,39 @@ public class CsGame : MonoBehaviour {
     void Start() {
 
         // put down a bunch of random bubbles
-        BubblesAdd(20, -8.0f, 8.0f,  -4.0f,  4.0f);
-        BubblesAdd(18, -8.0f, 8.0f,   4.0f,  12.0f);
-        BubblesAdd(16, -8.0f, 8.0f,  12.0f,  20.0f);
-        BubblesAdd(14, -8.0f, 8.0f,  20.0f,  28.0f);
-        BubblesAdd(12, -8.0f, 8.0f,  28.0f,  36.0f);
-        BubblesAdd(10, -8.0f, 8.0f,  36.0f,  44.0f);
-        BubblesAdd( 9, -8.0f, 8.0f,  44.0f,  52.0f);
-        BubblesAdd( 8, -8.0f, 8.0f,  52.0f,  60.0f);
-        BubblesAdd( 7, -8.0f, 8.0f,  60.0f,  68.0f);
-        BubblesAdd( 6, -8.0f, 8.0f,  68.0f,  76.0f);
-        BubblesAdd( 5, -8.0f, 8.0f,  76.0f,  84.0f);
-        BubblesAdd( 4, -8.0f, 8.0f,  84.0f,  92.0f);
-        BubblesAdd( 3, -8.0f, 8.0f,  92.0f, 100.0f);
-        BubblesAdd( 2, -8.0f, 8.0f, 100.0f, 108.0f);
-        BubblesAdd( 1, -8.0f, 8.0f, 108.0f, 116.0f);
+        BubblesSectionAdd(20, -4.0f);
+    }
+
+    // put down a section of bubbles with specific parameters
+    void BubblesSectionAdd(int nBubbleAmount, float flSectionHeight) {
+
+        // put down a bunch of random bubbles
+        BubblesAdd(nBubbleAmount -  0, -8.0f, 8.0f, flSectionHeight +   0.0f, flSectionHeight +   8.0f);
+        BubblesAdd(nBubbleAmount -  2, -8.0f, 8.0f, flSectionHeight +   8.0f, flSectionHeight +  16.0f);
+        BubblesAdd(nBubbleAmount -  4, -8.0f, 8.0f, flSectionHeight +  16.0f, flSectionHeight +  24.0f);
+        BubblesAdd(nBubbleAmount -  6, -8.0f, 8.0f, flSectionHeight +  24.0f, flSectionHeight +  32.0f);
+        BubblesAdd(nBubbleAmount -  8, -8.0f, 8.0f, flSectionHeight +  32.0f, flSectionHeight +  40.0f);
+        BubblesAdd(nBubbleAmount - 10, -8.0f, 8.0f, flSectionHeight +  40.0f, flSectionHeight +  48.0f);
+        BubblesAdd(nBubbleAmount - 11, -8.0f, 8.0f, flSectionHeight +  48.0f, flSectionHeight +  52.0f);
+        BubblesAdd(nBubbleAmount - 12, -8.0f, 8.0f, flSectionHeight +  56.0f, flSectionHeight +  64.0f);
+        BubblesAdd(nBubbleAmount - 13, -8.0f, 8.0f, flSectionHeight +  64.0f, flSectionHeight +  72.0f);
+        BubblesAdd(nBubbleAmount - 14, -8.0f, 8.0f, flSectionHeight +  72.0f, flSectionHeight +  80.0f);
+        BubblesAdd(nBubbleAmount - 15, -8.0f, 8.0f, flSectionHeight +  80.0f, flSectionHeight +  88.0f);
+        BubblesAdd(nBubbleAmount - 16, -8.0f, 8.0f, flSectionHeight +  88.0f, flSectionHeight +  96.0f);
+        BubblesAdd(nBubbleAmount - 17, -8.0f, 8.0f, flSectionHeight +  96.0f, flSectionHeight + 104.0f);
+        BubblesAdd(nBubbleAmount - 18, -8.0f, 8.0f, flSectionHeight + 104.0f, flSectionHeight + 112.0f);
+        BubblesAdd(nBubbleAmount - 19, -8.0f, 8.0f, flSectionHeight + 112.0f, flSectionHeight + 120.0f);
     }
 
     // add a new section of bubbles
-    public void BubblesAdd(int nBubbleAmount, float flBoundLeft, float flBoundRight, float flBoundDown, float flBoundUp) {
+    void BubblesAdd(int nBubbleAmount, float flBoundLeft, float flBoundRight, float flBoundDown, float flBoundUp) {
+
+        // make sure the amount is larger than 0
+        if (nBubbleAmount < 1) {
+
+            // set the bubble amount to 1
+            nBubbleAmount = 1;
+        }
 
         // put down a bunch of random bubbles
         for (int nIndex = 0; nIndex <= nBubbleAmount; nIndex += 1) {
@@ -65,6 +79,17 @@ public class CsGame : MonoBehaviour {
 
         // give it a reference to the pop sound effect
         pCoin.AudioCoinSet(m_pAudioCoin1, m_pAudioCoin2, m_pAudioCoin3);
+    }
+
+    // character call this function to trigger generation of the next secion of bubbles
+    public void TriggerBubblesAdd(float flTriggerHeight) {
+
+        // section 2
+        if (flTriggerHeight > 116.0f) {
+
+            // add a vertical section of bubbles
+            BubblesSectionAdd(19, 116.0f);
+        }
     }
 
     // calling this function ends the game
