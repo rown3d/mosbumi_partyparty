@@ -4,7 +4,7 @@ public class CsGame : MonoBehaviour {
 
     [SerializeField] CsBubble m_pBubblePrefab;
     [SerializeField] CsCoin m_pCoinPrefab;
-    [SerializeField] string[] m_iLore;
+    public string[] m_iLore;
 
     // references
     [SerializeField] GameObject m_pGameOver;

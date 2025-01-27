@@ -44,6 +44,7 @@ public class CsCharacter : MonoBehaviour {
     [SerializeField] Image m_pScorePanelOutline;
     [SerializeField] Image m_pScorePanel;
     [SerializeField] Text m_pScoreText;
+    [SerializeField] Text m_pScoreFinalText;
 
     // start is called once before the first execution of update after the monobehaviour is created
     void Start() {
@@ -62,6 +63,7 @@ public class CsCharacter : MonoBehaviour {
 
         // set score ui
         m_pScoreText.text = "0";
+        m_pScoreFinalText.text = "final score: 0";
         m_pScorePanel.rectTransform.sizeDelta = new Vector2(m_pScoreText.preferredWidth, 40.0f);
         m_pScorePanelOutline.rectTransform.sizeDelta = new Vector2(m_pScoreText.preferredWidth + 10, 50.0f);
 
@@ -261,6 +263,7 @@ public class CsCharacter : MonoBehaviour {
 
         // update ui
         m_pScoreText.text = m_nScore.ToString();
+        m_pScoreFinalText.text = "final score: " + m_nScore.ToString();
         m_pScorePanel.rectTransform.sizeDelta = new Vector2(m_pScoreText.preferredWidth, 40.0f);
         m_pScorePanelOutline.rectTransform.sizeDelta = new Vector2(m_pScoreText.preferredWidth + 10, 50.0f);
     }

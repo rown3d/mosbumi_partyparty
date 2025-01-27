@@ -1378,6 +1378,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ef87caa2ecfc080693605ddeb0b4a9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_pLorePanel: {fileID: 8446488}
+  m_pLoreText: {fileID: 268022553}
+  m_pGame: {fileID: 1404379249}
 --- !u!1 &770508195
 GameObject:
   m_ObjectHideFlags: 0
@@ -1583,8 +1586,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 100}
-  m_LocalScale: {x: 190, y: 570, z: 10}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 200, y: 600, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2176,7 +2179,7 @@ MonoBehaviour:
   m_iLore:
   - All piggies go to heaven.
   - Piggies have been wandering the shores for a hunderd years.
-  - A large tall tower has emerged, it's top obscured by dark coulds.
+  - A large tall tower has emerged, it's top obscured by dark clouds.
   - Piggies only get a single shot to climb the tower.
   - To go higher and higher, piggies bounce on bubbles.
   - Piggies strive to escape the darkness below.
@@ -2193,8 +2196,8 @@ MonoBehaviour:
   - Piggies keep climbing until the very end.
   - Piggies keep climbing until it is all over.
   - Piggies keep climbing until everything stops.
-  - Piggies keep climbing for ever...
-  - ...
+  - Piggies keep climbing for ever. . .
+  - . . .and ever. . .
   m_pGameOver: {fileID: 707615637}
   m_pAudioPop: {fileID: 180784125}
   m_pAudioCoin1: {fileID: 956299477}
@@ -2668,6 +2671,7 @@ MonoBehaviour:
   m_pScorePanelOutline: {fileID: 2014890729}
   m_pScorePanel: {fileID: 507335576}
   m_pScoreText: {fileID: 667069766}
+  m_pScoreFinalText: {fileID: 1427627640}
 --- !u!1 &1675885824
 GameObject:
   m_ObjectHideFlags: 0
