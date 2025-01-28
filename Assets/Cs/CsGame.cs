@@ -5,6 +5,10 @@ public class CsGame : MonoBehaviour {
     [SerializeField] CsBubble m_pBubblePrefab;
     [SerializeField] CsCoin m_pCoinPrefab;
     public string[] m_iLore;
+    int m_nSection;
+
+    // parameters
+    [SerializeField] float m_flSectionTriggerOffset;
 
     // references
     [SerializeField] GameObject m_pGameOver;
@@ -17,8 +21,11 @@ public class CsGame : MonoBehaviour {
     // start is called once before the first execution of update after the monobehaviour is created
     void Start() {
 
+        // start at section 20
+        m_nSection = 20;
+
         // put down a bunch of random bubbles
-        BubblesSectionAdd(20, -4.0f);
+        BubblesSectionAdd(m_nSection, -4.0f);
     }
 
     // put down a section of bubbles with specific parameters
@@ -84,11 +91,21 @@ public class CsGame : MonoBehaviour {
     // character call this function to trigger generation of the next secion of bubbles
     public void TriggerBubblesAdd(float flTriggerHeight) {
 
-        // section 2
-        if (flTriggerHeight > 116.0f) {
+        // amount of sections passed
+        float flSectionsPassed = 20.0f - m_nSection;
+
+        // check if we need to generate next section
+        if (flTriggerHeight > 116.0f + 120.0f*flSectionsPassed - m_flSectionTriggerOffset) {
+
+            // section 1 goes on for ever
+            if (m_nSection > 1) {
+
+                // go to the next section
+                m_nSection -= 1;
+            }
 
             // add a vertical section of bubbles
-            BubblesSectionAdd(19, 116.0f);
+            BubblesSectionAdd(m_nSection, 116.0f + 120.0f*flSectionsPassed);
         }
     }
 
